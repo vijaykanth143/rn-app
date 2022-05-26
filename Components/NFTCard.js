@@ -1,11 +1,18 @@
-import { View, Image, Text } from "react-native";
+import { View, Image, Text, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { COLORS, SIZES, SHADOWS, assets } from "../constants";
 import { CircleButton, RectButton } from "./Button";
 import { SubInfo, EthPrice, NFTTitle } from "./SubInfo";
+import { useState } from "react";
 
 const NFTCard = ({ data }) => {
+  const [Likes, setlikes] = useState(false);
   const navigation = useNavigation();
+  const LikeHandler = (id) => {
+    setlikes(!Likes);
+    console.log(id);
+  };
+  console.log(Likes);
   return (
     <View
       style={{
@@ -27,7 +34,25 @@ const NFTCard = ({ data }) => {
             borderTopRightRadius: SIZES.font,
           }}
         />
-        <CircleButton imgUrl={assets.heart} right={10} top={10} />
+        {Likes ? (
+          <CircleButton
+            imgUrl={assets.heartwhite}
+            right={10}
+            top={10}
+            handlePress={LikeHandler}
+            like={Likes}
+          />
+        ) : (
+          <CircleButton
+            imgUrl={assets.heart}
+            right={10}
+            top={10}
+            handlePress={LikeHandler}
+            like={Likes}
+          />
+        )}
+
+        <Text>{Likes}</Text>
       </View>
       <SubInfo />
       <View style={{ width: "100%", padding: SIZES.font }}>
