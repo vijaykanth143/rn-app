@@ -6,7 +6,7 @@ import {
   StatusBar,
   FlatList,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { COLORS, SIZES, SHADOWS, FONTS, assets } from "../constants";
 import {
   CircleButton,
@@ -18,6 +18,11 @@ import {
 } from "../Components";
 
 const DetailsHeader = ({ data, navigation }) => {
+  const [Likes, setlikes] = useState(false);
+  const LikeHandler = (id) => {
+    setlikes(!Likes);
+  };
+  console.log(Likes);
   return (
     <View style={{ width: "100%", height: 373 }}>
       <Image
@@ -31,11 +36,24 @@ const DetailsHeader = ({ data, navigation }) => {
         left={15}
         top={StatusBar.currentHeight + 10}
       />
-      <CircleButton
-        imgUrl={assets.heart}
-        right={15}
-        top={StatusBar.currentHeight + 10}
-      />
+
+      {Likes ? (
+        <CircleButton
+          imgUrl={assets.heartwhite}
+          right={15}
+          top={StatusBar.currentHeight + 10}
+          handlePress={LikeHandler}
+          like={Likes}
+        />
+      ) : (
+        <CircleButton
+          imgUrl={assets.heart}
+          right={15}
+          top={StatusBar.currentHeight + 10}
+          handlePress={LikeHandler}
+          like={Likes}
+        />
+      )}
     </View>
   );
 };
